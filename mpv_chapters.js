@@ -1,7 +1,6 @@
 "use strict";
 
 //display chapter on osd and easily switch between chapters by click on title of chapter
-mp.msg.info(mp.get_script_name());
 mp.register_event("file-loaded", init);
 mp.observe_property("chapter", "number", onChapterChange);
 var options = {
@@ -24,7 +23,10 @@ var autohidedelay = mp.get_property_number("cursor-autohide");
 function init() {
 	playinfo.chapters = getChapters();
 	playinfo.chaptercount = playinfo.chapters.length;
-	while (playinfo.chaptercount * options.font_size > (1000 * 720) / 1080) {
+	while (
+		playinfo.chaptercount * options.font_size >
+		1000 / getOverallScale()
+	) {
 		options.font_size = options.font_size - 1;
 	}
 	drawChapterList();
@@ -43,10 +45,8 @@ function getChapters() {
 
 			if (chapterTitle != undefined) {
 				chaptersArray.push(chapterTitle);
-			} else {
 			}
 		}
-
 		return chaptersArray;
 	}
 }
@@ -119,7 +119,6 @@ function toggleOverlay() {
 function onChapterChange() {
 	playinfo.currentChapter = mp.get_property_native("chapter");
 	if (playinfo.currentChapter != undefined) {
-		mp.msg.info("current:" + playinfo.currentChapter);
 		drawChapterList();
 	}
 
@@ -139,10 +138,13 @@ function pos2chapter(x, y, overallscale) {
 		return null;
 	}
 }
+function getOverallScale() {
+	return mp.get_osd_size().height / 720;
+}
 function onMBTN_LEFT() {
 	//get mouse position
 	if (toggle_switch) {
-		var overallscale = mp.get_osd_size().height / 720;
+		var overallscale = getOverallScale();
 		var pos = mp.get_mouse_pos();
 		var chapterClicked = pos2chapter(pos.x, pos.y, overallscale);
 		if (chapterClicked != null) {
@@ -150,7 +152,6 @@ function onMBTN_LEFT() {
 		}
 	}
 }
-
 mp.add_key_binding("TAB", "tab", function () {
 	toggleOverlay();
 });
