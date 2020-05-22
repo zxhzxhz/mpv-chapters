@@ -23,10 +23,7 @@ var autohidedelay = mp.get_property_number("cursor-autohide");
 function init() {
 	playinfo.chapters = getChapters();
 	playinfo.chaptercount = playinfo.chapters.length;
-	while (
-		playinfo.chaptercount * options.font_size >
-		1000 / getOverallScale()
-	) {
+	while (playinfo.chaptercount * options.font_size > 1000 / 1.5) {
 		options.font_size = options.font_size - 1;
 	}
 	drawChapterList();
