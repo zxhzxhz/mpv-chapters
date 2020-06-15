@@ -3,4 +3,4 @@ display chapter on osd and easily switch between chapters by clicking on title o
 
 preview:
 
-[Imgur](https://i.imgur.com/f7WtKYN.png)
+![Imgur](https://i.imgur.com/f7WtKYN.png)
