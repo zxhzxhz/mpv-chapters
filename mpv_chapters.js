@@ -133,6 +133,9 @@ function onChapterChange() {
 }
 function pos2chapter(x, y, overallscale) {
 	var vectical = y / (options.font_size * overallscale);
+    if(vectical > playinfo.chaptercount){
+        return null;
+    }
 	var intVectical = Math.floor(vectical);
 	var lengthofTitleClicked = playinfo.chapters[intVectical].length;
 	var lengthofTitleClicked_px =
