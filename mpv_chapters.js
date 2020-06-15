@@ -13,8 +13,9 @@ var options = {
 var playinfo = {
 	chapters: [], //array
 	chaptercount: "", // int
-	assinterface: [], //array(deprecated, use assdraw instead)
+	assinterface: [], //array(deprecated, use single assdraw instead)
 	currentChapter: "", //int
+    loaded:false,
 };
 var toggle_switch = false;
 var assdraw = mp.create_osd_overlay();
@@ -23,11 +24,15 @@ var autohidedelay = mp.get_property_number("cursor-autohide");
 function init() {
 	playinfo.chapters = getChapters();
 	playinfo.chaptercount = playinfo.chapters.length;
+    if(playinfo.chaptercount == 0){
+        return;
+    }
 	while (playinfo.chaptercount * options.font_size > 1000 / 1.5) {
 		options.font_size = options.font_size - 1;
 	}
 	drawChapterList();
 	mp.msg.info("init");
+    playinfo.loaded = true;
 }
 function getChapters() {
 	var chapterCount = mp.get_property("chapter-list/count");
@@ -101,6 +106,9 @@ function drawChapterList() {
 }
 
 function toggleOverlay() {
+    if(!playinfo.loaded){
+        return;
+    }
 	if (!toggle_switch) {
 		drawChapterList();
 		assdraw.update();
@@ -140,6 +148,9 @@ function getOverallScale() {
 }
 function onMBTN_LEFT() {
 	//get mouse position
+    if(!playinfo.loaded){
+        return;
+    }
 	if (toggle_switch) {
 		var overallscale = getOverallScale();
 		var pos = mp.get_mouse_pos();
