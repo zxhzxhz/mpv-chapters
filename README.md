@@ -1,5 +1,8 @@
 # mpv-chapters
-display chapter on osd and easily switch between chapters by clicking on title of chapter
+Display chapters and allow you to jump to them with a mouse click.
+
+## usage
+Press tab to toggle chapter menu.
 
 preview:
 
