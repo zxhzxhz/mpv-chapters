@@ -18,7 +18,7 @@ var playinfo = {
     loaded:false,
 };
 var toggle_switch = false;
-var assdraw = mp.create_osd_overlay();
+var assdraw = mp.create_osd_overlay("ass-events");
 var autohidedelay = mp.get_property_number("cursor-autohide");
 //function
 function init() {
@@ -56,7 +56,7 @@ function getChapters() {
 function drawChapterList() {
 	var resY = 0;
 	var resX = 0;
-	assdraw.data = "";
+	var assdrawdata = "";
 	function setPos(str, _X, _Y) {
 		str = str + "{\\pos(" + _X + ", " + _Y + ")}";
 		return str;
@@ -92,17 +92,18 @@ function drawChapterList() {
 		return str;
 	}
 	playinfo.chapters.forEach(function (element, index) {
-		assdraw.data = setPos(assdraw.data, resX, resY);
-		assdraw.data = setborderSize(assdraw.data);
-		assdraw.data = setborderColor(assdraw.data);
-		assdraw.data = setFontColor(assdraw.data, index);
-		assdraw.data = setFont(assdraw.data);
-		assdraw.data = setEndofmodifiers(assdraw.data);
-		assdraw.data = assdraw.data + element;
-		assdraw.data = setEndofLine(assdraw.data);
-		assdraw.data.data = assdraw.data;
+		assdrawdata = setPos(assdrawdata, resX, resY);
+		assdrawdata = setborderSize(assdrawdata);
+		assdrawdata = setborderColor(assdrawdata);
+		assdrawdata = setFontColor(assdrawdata, index);
+		assdrawdata = setFont(assdrawdata);
+		assdrawdata = setEndofmodifiers(assdrawdata);
+		assdrawdata = assdrawdata + element;
+		assdrawdata = setEndofLine(assdrawdata);
 		resY += options.font_size;
 	});
+	assdraw.data = assdrawdata
+	
 }
 
 function toggleOverlay() {
