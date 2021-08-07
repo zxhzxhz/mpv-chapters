@@ -3,6 +3,7 @@
 //display chapter on osd and easily switch between chapters by click on title of chapter
 mp.register_event("file-loaded", init);
 mp.observe_property("chapter", "number", onChapterChange);
+mp.observe_property("chapters", "number", init);
 var options = {
 	font_size: 16,
 	font_color: "00FFFF",
@@ -31,7 +32,7 @@ function init() {
 		options.font_size = options.font_size - 1;
 	}
 	drawChapterList();
-	mp.msg.info("init");
+	mp.msg.info("initiated");
     playinfo.loaded = true;
 }
 function getChapters() {
