@@ -3,7 +3,7 @@
 //display chapter on osd and easily switch between chapters by click on title of chapter
 mp.register_event("file-loaded", init);
 mp.observe_property("chapter", "number", onChapterChange);
-mp.observe_property("chapters", "number", init);
+mp.observe_property("chapter-list/count", "number", init);
 var options = {
 	font_size: 16,
 	font_color: "00FFFF",
